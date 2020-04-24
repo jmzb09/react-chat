@@ -14,7 +14,7 @@ module.exports = {
   entry: {
     main: [
       '@babel/polyfill',
-      './src/app/login/login.js',
+      './src/app/index.js',
       'bootstrap/dist/css/bootstrap.min.css',
       './src/css/main.scss',
     ],
