@@ -5,8 +5,7 @@
   "main": "login.js",
   "scripts": {
     "test": "jest",
-    "start:client:dev":
-        "webpack-dev-server --mode development --config webpack.config.dev.babel.js --open",
+    "start:client:dev": "webpack-dev-server --mode development --config webpack.config.dev.babel.js --open",
     "build": "webpack --config webpack.config.prod.babel.js"
   },
   "repository": {
