@@ -7,7 +7,7 @@ const Chat = props => {
 
   return (
     <div className="container p-5">
-      <p>
+      <p> {props.user}
         Здесь будет чат <br/>
         А пока просто кнопка выхода из чата
       </p>
