@@ -6,7 +6,10 @@ class Chat extends React.Component
     constructor(props) {
         super(props);
         this.submit = this.submit.bind(this);
-        this.state = { messages : [] };
+        let {messages} = localStorage;
+        messages = messages ? JSON.parse(messages) : [];
+        this.state = {messages};
+        onstorage = () => { this.setState({messages : JSON.parse(localStorage.messages)}) };
     }
 
     submit() {
@@ -16,8 +19,9 @@ class Chat extends React.Component
             text : this.refs._text.value,
         };
         this.refs._text.value = "";
-        console.log(JSON.stringify(this.state.messages.concat(newMessage)));
-        this.setState({ messages : this.state.messages.concat(newMessage) });
+        const newMessages = this.state.messages.concat(newMessage);
+        this.setState({ messages : newMessages });
+        localStorage.messages = JSON.stringify(newMessages);
     }
 
     render() {
@@ -35,13 +39,3 @@ class Chat extends React.Component
 }
 
 export default Chat;
-
-
-
-
-
-
-
-
-
-
