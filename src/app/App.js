@@ -13,7 +13,7 @@ class App extends React.Component
         return (
             this.state.username ? 
                 <Chat user={this.state.username} logout={() => this.setState({username : ""})}/> :
-                <Login onSuccess={login => this.setState({username : login })} />
+                <Login onSuccess={login => this.setState({ username : login })} />
         );
     }
 }
