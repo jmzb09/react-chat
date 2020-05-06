@@ -1,6 +1,6 @@
 import React from 'react';
-import Login from './Login';
-import Chat from './Chat';
+import Login from './login/Login';
+import Chat from './chat/Chat';
 
 class App extends React.Component
 {
@@ -10,6 +10,7 @@ class App extends React.Component
     }
 
     render() {
+        document.title = this.state.username || "Log in";
         return (
             this.state.username ? 
                 <Chat user={this.state.username} logout={() => this.setState({username : ""})}/> :

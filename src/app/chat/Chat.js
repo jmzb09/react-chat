@@ -6,19 +6,23 @@ class Chat extends React.Component
     constructor(props) {
         super(props);
         this.submit = this.submit.bind(this);
-        let {messages} = localStorage;
-        messages = messages ? JSON.parse(messages) : [];
-        this.state = {messages};
-        onstorage = () => { this.setState({messages : JSON.parse(localStorage.messages)}) };
+        this.state = { messages : JSON.parse(localStorage.messages || "[]") };
+        onstorage = () => {
+            this.setState({ messages : JSON.parse(localStorage.messages || "[]") }) 
+        }
     }
 
     submit() {
+        let {_text} = this.refs;
+        if (_text.value === "") {
+            return;
+        }
         const newMessage = {    
             author : this.props.user,
             datetime : new Date().toGMTString(),
-            text : this.refs._text.value,
+            text : _text.value,
         };
-        this.refs._text.value = "";
+        _text.value = "";
         const newMessages = this.state.messages.concat(newMessage);
         this.setState({ messages : newMessages });
         localStorage.messages = JSON.stringify(newMessages);
