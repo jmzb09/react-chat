@@ -1,51 +1,28 @@
-import Message from './Message'
-import React from 'react';
+import React, { useState } from 'react'
+import MessageList from './MessageList'
+import MessageInput from './MessageInput'
+import {messageCreator} from './Message'
+import {loadSavedMessages, saveMessages} from './Storage'
 
-class Chat extends React.Component
-{
-    constructor(props) {
-        super(props);
-        this.submit = this.submit.bind(this);
-        this.state = {
-            messages : JSON.parse(localStorage.messages || "[]"),
-            currentMessageText : "",
-        };
-        onstorage = () => {
-            this.setState({ messages : JSON.parse(localStorage.messages || "[]") }) 
-        }
-    }
+const Chat = ({user, logout}) => {
+    const [messages, setMessages] = useState(loadSavedMessages())
+    onstorage = () => setMessages(loadSavedMessages())
 
-    submit() {
-        if (this.state.currentMessageText === "") {
-            return;
-        }
-        const newMessage = {    
-            author : this.props.user,
-            datetime : new Date().toGMTString(),
-            text : this.state.currentMessageText,
-        };
-        const newMessages = this.state.messages.concat(newMessage);
-        localStorage.messages = JSON.stringify(newMessages);
-        this.setState({
-            messages : newMessages,
-            currentMessageText : "",
-        });
-    }
+    const messageObject = messageCreator(user);
 
-    render() {
-        return (
-            <div id="chat">
-                <button id="logout" onClick={this.props.logout}> Log out </button>
-                <textarea value={this.state.currentMessageText}
-                          onChange={ev => this.setState({currentMessageText : ev.target.value})}>
-                </textarea>
-                <button type="submit" onClick={this.submit}> Send </button>
-                <div id="messages">
-                    {this.state.messages.map((message, i) => <Message key={i} {...message} />)}
-                </div> 
-            </div>
-        );        
+    const submit = text => {
+        const newMessages = messages.concat(messageObject(text));
+        saveMessages(newMessages);
+        setMessages(newMessages);
     }
+    
+    return (
+        <div id="chat">
+            <button id="logout" onClick={logout}> Log out </button>
+            <MessageInput send={submit} />
+            <MessageList messages={messages} />
+        </div>
+    );
 }
 
 export default Chat;

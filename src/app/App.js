@@ -1,22 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Login from './login/Login';
 import Chat from './chat/Chat';
 
-class App extends React.Component
-{
-    constructor(props) {
-        super(props);
-        this.state = { username : "" };
-    }
-
-    render() {
-        document.title = this.state.username || "Log in";
-        return (
-            this.state.username ? 
-                <Chat user={this.state.username} logout={() => this.setState({username : ""})}/> :
-                <Login onSuccess={login => this.setState({ username : login })} />
-        );
-    }
+const App = () => {
+    const [userName, setUserName] = useState("");
+    document.title = userName || "Log in";
+    return userName ? <Chat user={userName} logout={ () => setUserName("") } /> : 
+            <Login onSuccess={ login => setUserName(login) } />
 }
 
 export default App;

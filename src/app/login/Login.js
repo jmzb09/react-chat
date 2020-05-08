@@ -1,50 +1,38 @@
-import React from 'react';
-import passwords from './passwords.json';
+import React, { useState } from 'react'
+import passwords from './passwords.json'
 
-class Login extends React.Component
-{
-    constructor(props) {
-        super(props);
-        this.submit = this.submit.bind(this);
-        this.state = {
-            login : "",
-            password : "",
-            entryError : "",
-        };
-    }
- 
-    submit(ev) {
-        ev.preventDefault(); 
-        const {login, password} = this.state;
-        if (passwords[login] === password) {
-            this.props.onSuccess(login);
+const Login = ({onSuccess}) => {
+    const [login, setLogin] = useState("")
+    const [password, setPassword] = useState("")
+    const [entryError, setEntryError] = useState("")
+
+    const submit = ev => {
+        ev.preventDefault()
+        if (passwords[login] === password) { 
+            onSuccess(login)
         } else {
-            this.setState({ entryError : "Wrong login or password" });
+            setEntryError("Wrong login or password")
         }
     }
 
-    render() {
-        return (
-            <form onSubmit={this.submit}>
-                <label> Login
-                    <input type="text"
-                           value={this.state.login}
-                           onChange={ ev => this.setState({ login : ev.target.value }) }
-                    />
-                </label> <br/>
-
-                <label> Password
-                    <input type="password"
-                           value={this.state.password}
-                           onChange={ ev => this.setState({ password : ev.target.value }) }
-                    />
-                </label> <br/>
-
-                <p> {this.state.entryError} </p> <br/>
-                <button type="submit"> Enter </button>
-            </form>
-        );
-    }
+    return (
+        <form onSubmit={submit}>
+            <label> Login
+                <input type="text"
+                       value={login}
+                       onChange={ev => setLogin(ev.target.value)} />
+            </label> <br/>
+ 
+            <label> Password
+                <input type="password"
+                       value={password}
+                       onChange={ev => setPassword(ev.target.value)} />
+            </label>
+ 
+            <p>{entryError}</p>
+            <button type="submit"> Enter </button>
+        </form>
+    )
 }
 
-export default Login;
+export default Login

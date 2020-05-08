@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Message = ({author, datetime, text}) => (
+const messageDateTime = () => new Date().toGMTString()
+export const messageCreator = author => text => ({author, datetime : messageDateTime(), text})
+
+export const Message = ({author, datetime, text}) => (
     <div className="message">
         <strong>{author}</strong>
         <span className="datetime">{datetime}</span>
@@ -14,5 +17,3 @@ Message.propTypes = {
     datetime: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired
 };
-
-export default Message;
