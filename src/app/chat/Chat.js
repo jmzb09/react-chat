@@ -18,7 +18,10 @@ const Chat = ({user, logout}) => {
     
     return (
         <div id="chat">
-            <button id="logout" onClick={logout}> Log out </button>
+            <div className="p-3 mb-2 bg-info text-white">
+               <span className="font-weight-bolder">{user}</span>
+               <button className="btn btn-danger float-right" onClick={logout}> Log out </button>
+            </div>
             <MessageInput send={submit} />
             <MessageList messages={messages} />
         </div>

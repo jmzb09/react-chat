@@ -16,21 +16,27 @@ const Login = ({onSuccess}) => {
     }
 
     return (
-        <form onSubmit={submit}>
-            <label> Login
-                <input type="text"
-                       value={login}
-                       onChange={ev => setLogin(ev.target.value)} />
-            </label> <br/>
+        <form className="form-signin" onSubmit={submit}>
+            <h1 className="h1 mb-4 text-center">{"Sign in"}</h1>
+            <label htmlFor="inputLogin" className="sr-only"> Login </label>
+            <input type="text"
+                   id="inputLogin"
+                   placeholder="Login"
+                   className="form-control"
+                   value={login}
+                   onChange={ev => setLogin(ev.target.value)} />
  
-            <label> Password
-                <input type="password"
-                       value={password}
-                       onChange={ev => setPassword(ev.target.value)} />
-            </label>
+            <label htmlFor="inputPassword" className="sr-only"> Password </label>
+            <input type="password"
+                   id="inputPassword"
+                   className="form-control"
+                   placeholder="Password"
+                   value={password}
+                   onChange={ev => setPassword(ev.target.value)} />
  
-            <p>{entryError}</p>
-            <button type="submit"> Enter </button>
+            <p className="text-center text-danger">{entryError}</p>
+            <button type="submit" className="btn btn-lg btn-primary btn-block"> Enter </button>
+            <p className="mt-5 mb-3 text-muted text-center">&copy; May 2020 </p>
         </form>
     )
 }

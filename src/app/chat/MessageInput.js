@@ -9,9 +9,11 @@ const MessageInput = ({send}) => {
         }
     }
     return (
-        <div id="input">
-            <textarea value={text} onChange={ev => setText(ev.target.value)}></textarea>
-            <button type="submit" onClick={handleClick}> Send </button>
+        <div id="messageInput">
+            <textarea className="form-control" rows="2"
+                      value={text} onChange={ev => setText(ev.target.value)}></textarea>
+            <button className="btn btn-primary"
+                    type="submit" onClick={handleClick}> Send </button>
         </div>
     )
 }
